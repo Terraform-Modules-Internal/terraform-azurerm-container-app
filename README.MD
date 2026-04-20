@@ -234,3 +234,12 @@ See the [`examples/basic`](./examples/basic) directory for a full working exampl
 - **VNET integration**: set `infrastructure_subnet_id` to a delegated subnet. The subnet must be delegated to `Microsoft.App/environments`.
 - **Internal load balancer**: requires `infrastructure_subnet_id` and `internal_load_balancer_enabled = true`.
 - **Secrets**: define secrets under each app's `secrets` block and reference them by name in `env[*].secret_name` or `registries[*].password_secret_name`.
+
+---
+
+## Maintained By
+
+| Name | Email |
+|------|-------|
+| Raghavendiran N | raghavendirann@presidio.com |
+| Sakthivel Manohar | smanohar@presidio.com |
