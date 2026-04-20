@@ -1,0 +1,70 @@
+# ============================================================================
+# Workflow 1 — Terraform Format & Validate
+#
+# Triggered on every push that touches a .tf or .tfvars file (any branch
+# except main). Provides fast feedback during feature development before
+# a PR is opened.
+#
+# No Azure credentials are required:
+#   - fmt only checks syntax/formatting
+#   - validate runs with -backend=false so no state or provider auth is needed
+# ============================================================================
+
+name: "1 · Format & Validate"
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - "**.tf"
+      - "**.tfvars"
+  workflow_dispatch:
+
+jobs:
+  # --------------------------------------------------------------------------
+  # Enforce canonical HCL formatting across every .tf file in the repository.
+  # --------------------------------------------------------------------------
+  fmt:
+    name: Terraform Format Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.5"
+
+      - name: terraform fmt
+        # -check  → exit non-zero if any file is not formatted
+        # -diff   → show which lines differ
+        # -recursive → traverse all sub-directories
+        run: terraform fmt -check -diff -recursive .
+
+  # --------------------------------------------------------------------------
+  # Initialise the module and run terraform validate.
+  # -backend=false skips remote state so no credentials are needed.
+  # Providers are downloaded from the public Terraform registry — no GitHub
+  # App token required at the module level.
+  # --------------------------------------------------------------------------
+  validate:
+    name: Terraform Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.5"
+
+      - name: terraform init (no backend)
+        run: terraform init -backend=false -upgrade
+
+      - name: terraform validate
+        run: terraform validate
