@@ -209,7 +209,7 @@ resource "azurerm_container_app" "this" {
             port                    = liveness_probe.value.port
             path                    = liveness_probe.value.path
             initial_delay           = liveness_probe.value.initial_delay
-            period_seconds          = liveness_probe.value.period_seconds
+            interval_seconds        = liveness_probe.value.interval_seconds
             timeout                 = liveness_probe.value.timeout
             failure_count_threshold = liveness_probe.value.failure_count_threshold
           }
@@ -221,8 +221,7 @@ resource "azurerm_container_app" "this" {
             transport               = readiness_probe.value.transport
             port                    = readiness_probe.value.port
             path                    = readiness_probe.value.path
-            initial_delay           = readiness_probe.value.initial_delay
-            period_seconds          = readiness_probe.value.period_seconds
+            interval_seconds        = readiness_probe.value.interval_seconds
             timeout                 = readiness_probe.value.timeout
             failure_count_threshold = readiness_probe.value.failure_count_threshold
             success_count_threshold = readiness_probe.value.success_count_threshold
@@ -235,8 +234,7 @@ resource "azurerm_container_app" "this" {
             transport               = startup_probe.value.transport
             port                    = startup_probe.value.port
             path                    = startup_probe.value.path
-            initial_delay           = startup_probe.value.initial_delay
-            period_seconds          = startup_probe.value.period_seconds
+            interval_seconds        = startup_probe.value.interval_seconds
             timeout                 = startup_probe.value.timeout
             failure_count_threshold = startup_probe.value.failure_count_threshold
           }

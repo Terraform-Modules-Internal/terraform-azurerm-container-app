@@ -98,7 +98,7 @@ variable "container_apps" {
         port                    = number
         path                    = optional(string, null)
         initial_delay           = optional(number, 10)
-        period_seconds          = optional(number, 10)
+        interval_seconds        = optional(number, 10)
         timeout                 = optional(number, 1)
         failure_count_threshold = optional(number, 3)
       }), null)
@@ -107,8 +107,7 @@ variable "container_apps" {
         transport               = string
         port                    = number
         path                    = optional(string, null)
-        initial_delay           = optional(number, 5)
-        period_seconds          = optional(number, 5)
+        interval_seconds        = optional(number, 5)
         timeout                 = optional(number, 1)
         failure_count_threshold = optional(number, 3)
         success_count_threshold = optional(number, 1)
@@ -118,8 +117,7 @@ variable "container_apps" {
         transport               = string
         port                    = number
         path                    = optional(string, null)
-        initial_delay           = optional(number, 0)
-        period_seconds          = optional(number, 10)
+        interval_seconds        = optional(number, 10)
         timeout                 = optional(number, 1)
         failure_count_threshold = optional(number, 3)
       }), null)

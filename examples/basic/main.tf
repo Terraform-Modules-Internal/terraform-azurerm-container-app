@@ -36,19 +36,18 @@ module "container_app" {
           ]
 
           liveness_probe = {
-            transport      = "HTTP"
-            port           = 8080
-            path           = "/health"
-            initial_delay  = 15
-            period_seconds = 20
+            transport        = "HTTP"
+            port             = 8080
+            path             = "/health"
+            initial_delay    = 15
+            interval_seconds = 20
           }
 
           readiness_probe = {
-            transport      = "HTTP"
-            port           = 8080
-            path           = "/ready"
-            initial_delay  = 5
-            period_seconds = 10
+            transport        = "HTTP"
+            port             = 8080
+            path             = "/ready"
+            interval_seconds = 10
           }
         }
       ]
